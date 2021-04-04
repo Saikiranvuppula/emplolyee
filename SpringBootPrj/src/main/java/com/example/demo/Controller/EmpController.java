@@ -24,21 +24,6 @@ public class EmpController
 	 
 	@Autowired
 	EmployeeRepo repo;
-@RequestMapping("/")
-public String home()
-{
-	return "home.jsp";
-	}
-  
-@RequestMapping("/getEmployee")
-public ModelAndView getEmployee(@RequestParam int empid)
-{
-	ModelAndView mv = new ModelAndView("showdetails.jsp");
-	Employee emp =repo.findById(empid).orElse(new Employee());
-	System.out.println(repo.findById(empid).orElse(new Employee()));
-	mv.addObject(emp);
-	return mv;
-	}
 @GetMapping("/employees")
 public List<Employee> getEmployees()
 {
