@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Employee;
 import com.example.demo.dao.EmployeeRepo;
+import com.example.demo.service.StudentService;
 
 @RestController
 public class EmpController 
@@ -24,34 +23,35 @@ public class EmpController
 	 
 	@Autowired
 	EmployeeRepo repo;
-@GetMapping("/employees")
+	@Autowired
+	StudentService service;
+@GetMapping(value="/employees",produces ="application/json")
 public List<Employee> getEmployees()
 {
-	 return repo.findAll();
+	 return service.findEmployees();
 	}
 @PostMapping("/employee")
 public Employee addEmployee(@RequestBody Employee e)
 {
-	repo.save(e);
-return e;
+	
+return repo.save(e);
 	}
 @PutMapping("/employee")
 public Employee UpdateEmployee(@RequestBody Employee e)
 {
-	repo.save(e);
-return e;
+	
+return service.UpdateEmployee(e);
 	}
 @DeleteMapping("/Employee/{empid}")
 public String deleteEmployee(@PathVariable int empid) 
 {
-	Employee e =repo.getOne(empid);
-			repo.delete(e);
-	return "removed";
+	
+	return "service.deleteEmployee(empid)";
 }
 @RequestMapping("/employee/{empid}")
 public Optional<Employee> getEmployee1(@PathVariable("empid") int empid)
 {
-	 return repo.findById(empid);
+	 return service.getEmployee1(empid);
 	}
 
 }
